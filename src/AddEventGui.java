@@ -20,11 +20,9 @@ public class AddEventGui {
     public AddEventGui() {
         event = new JFrame("Add Event");
         event.setSize(300, 400);
-        event.setVisible(true);
         
         pane = event.getContentPane();
         pane.setLayout(null);
-        pane.setVisible(true);
         
         event.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -70,6 +68,9 @@ public class AddEventGui {
         submitBtn.setBounds (95, 295, 100, 25);
         
         pane.add(panel);
+        
+        pane.setVisible(true);
+        event.setVisible(true);
     }
     
 }
