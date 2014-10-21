@@ -26,8 +26,8 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday -= 1;
             }
-            refreshCalendar.setMonth(monthToday);
-            refreshCalendar.setYear(yearToday);
+            //refreshCalendar.setMonth(monthToday);
+            //refreshCalendar.setYear(yearToday);
         } else if ("btnNext".equals(btnName)) {
             if (monthToday == 11) {
                 monthToday = 0;
@@ -35,8 +35,8 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday += 1;
             }
-            refreshCalendar.setMonth(monthToday);
-            refreshCalendar.setYear(yearToday);
+            //refreshCalendar.setMonth(monthToday);
+            //refreshCalendar.setYear(yearToday);
         }
     }
 
