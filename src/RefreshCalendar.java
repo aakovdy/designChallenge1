@@ -54,4 +54,12 @@ public class RefreshCalendar implements ActionListener {
 
         cp.getCalendarTable().setDefaultRenderer(cp.getCalendarTable().getColumnClass(0), tableRenderer);
     }
+    
+    public void setMonth(int month) {
+        this.month = month;
+    }
+    
+    public void setYear(int year) {
+        this.year = year;
+    }
 }
