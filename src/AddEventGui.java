@@ -1,5 +1,3 @@
-package designchallenge1;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JButton;

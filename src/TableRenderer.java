@@ -1,5 +1,3 @@
-package designchallenge1;
-
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;
