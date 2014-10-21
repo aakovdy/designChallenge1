@@ -72,8 +72,4 @@ public class AddEventGui {
         pane.add(panel);
     }
     
-    public static void main(String[] args) {
-        new AddEventGui();
-    }
-    
 }
