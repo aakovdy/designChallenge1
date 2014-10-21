@@ -9,9 +9,11 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
     public JButton btnPrev, btnNext;
     public int monthToday, yearToday;
     public CalendarViewer cp;
+    public RefreshCalendar refreshCalendar;
 
-    public CalendarViewerListeners(CalendarViewer cp) {
+    public CalendarViewerListeners(CalendarViewer cp, RefreshCalendar refreshCalendar) {
         this.cp = cp;
+        this.refreshCalendar = refreshCalendar;
     }
 
     @Override
@@ -26,8 +28,7 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday -= 1;
             }
-            //refreshCalendar.setMonth(monthToday);
-            //refreshCalendar.setYear(yearToday);
+            //cp.refreshCalendar(monthToday, yearToday);
         } else if ("btnNext".equals(btnName)) {
             if (monthToday == 11) {
                 monthToday = 0;
@@ -35,8 +36,7 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday += 1;
             }
-            //refreshCalendar.setMonth(monthToday);
-            //refreshCalendar.setYear(yearToday);
+            //cp.refreshCalendar(monthToday, yearToday);
         }
     }
 

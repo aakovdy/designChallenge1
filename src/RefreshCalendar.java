@@ -16,6 +16,11 @@ public class RefreshCalendar implements ActionListener {
         this.modelCalendarTable = modelCalendarTable;
         this.tableRenderer = tableRenderer;
     }
+    
+    public RefreshCalendar(int month, int year) {
+        this.month = month;
+        this.year = year;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
