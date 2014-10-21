@@ -1,3 +1,5 @@
+package designchallenge1;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -26,7 +28,7 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday -= 1;
             }
-            cp.refreshCalendar(monthToday, yearToday);
+            //cp.refreshCalendar(monthToday, yearToday);
         } else if ("btnNext".equals(btnName)) {
             if (monthToday == 11) {
                 monthToday = 0;
@@ -34,14 +36,16 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday += 1;
             }
-            cp.refreshCalendar(monthToday, yearToday);
+            //cp.refreshCalendar(monthToday, yearToday);
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int col = cp.calendarTable.getSelectedColumn();
-        int row = cp.calendarTable.getSelectedRow();
+        int col = cp.getCalendarTable().getSelectedColumn();
+        int row = cp.getCalendarTable().getSelectedRow();
+        
+        AddEventGui gui = new AddEventGui();
     }
 
     @Override
