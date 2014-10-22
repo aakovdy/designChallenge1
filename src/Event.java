@@ -1,15 +1,20 @@
+
+
 public class Event {
     
     private int month, day, year;
-    private String event, location, description;
+    private String event, priority;
     
-    public Event(int month, int day, int year, String event, String location, String description) {
-        this.month = month;
+    public Event(Object date, String event, String priority) {
         this.day = day;
         this.year = year;
         this.event = event;
-        this.location = location;
-        this.description = description;
+        this.priority = priority;
+        
+    }
+
+    Event(Object valueAt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void setMonth(int month) {
@@ -28,14 +33,6 @@ public class Event {
         this.event = event;
     }
     
-    public void setLocation(String location) {
-        this.location = location;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
     public int getMonth() {
         return this.month;
     }
@@ -50,13 +47,5 @@ public class Event {
     
     public String getEvent() {
         return this.event;
-    }
-    
-    public String getLocation() {
-        return this.location;
-    }
-    
-    public String getDescription() {
-        return this.description;
     }
 }
