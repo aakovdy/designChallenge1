@@ -1,6 +1,5 @@
 
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -22,7 +21,9 @@ public class CalendarProgram {
     private DefaultTableModel modelCalendarTable;
 
     private String[] priorities;
-    private String event, eventLevel;
+    private String eventName, eventLevel;
+    
+    private ArrayList<Event> events;
 
     public void refreshCalendar(int month, int year) {
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -55,17 +56,30 @@ public class CalendarProgram {
         for (i = 1; i <= nod; i++) {
             int row = new Integer((i + som - 2) / 7);
             int column = (i + som - 2) % 7;
-            modelCalendarTable.setValueAt(i, row, column);
+            
+            int eventDetect = 0;
+            for (j = 0; j < events.size(); j++)
+                if (events.get(j).getYear() == year && events.get(j).getMonth() - 1 == month && events.get(j).getDay() == i ){
+                    eventDetect = 1;
+                    break;
+                }
+            
+            if (eventDetect == 0)
+                modelCalendarTable.setValueAt(i, row, column);
+            else
+                modelCalendarTable.setValueAt(events.get(j).getEvent(), row, column);
         }
 
         calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
     }
 
-    public CalendarProgram() {
+    public CalendarProgram(final ArrayList<Event> events) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
         }
+        
+        this.events = events;
 
         frmMain = new JFrame("Calendar Application");
         frmMain.setSize(660, 750);
@@ -98,28 +112,34 @@ public class CalendarProgram {
         calendarTable = new JTable(modelCalendarTable);
         calendarTable.addMouseListener(new MouseAdapter() {
             @Override
-            @SuppressWarnings("empty-statement")
             public void mouseClicked(MouseEvent evt) {
                 int col = calendarTable.getSelectedColumn();
                 int row = calendarTable.getSelectedRow();
 
                 String[] priorities = {"Urgent", "High", "Medium", "Low"};
                 JComboBox priorityBox = new JComboBox(priorities);
-                event = JOptionPane.showInputDialog("Event Name:");
+                eventName = JOptionPane.showInputDialog("Event Name:");
                 JOptionPane.showMessageDialog(null, priorityBox, "Priority Level", JOptionPane.QUESTION_MESSAGE);
                 eventLevel = (String) priorityBox.getSelectedItem();
                
                 if(eventLevel.equals("Urgent")) {
-                    /*AddEvent addEvent = new UrgentEvent();
-                    addEvent.setEvent(calendarTable);
-                    modelCalendarTable.setValueAt(pane, calendarTable.getSelectedRow(), calendarTable.getSelectedRow());
-                    modelCalendarTable.fireTableCellUpdated(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());*/
+                    int day = (int) calendarTable.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    int month = monthToday + 1;
+                    int year = yearToday;
+                    Event event = new Event(month, day, year, eventName, eventLevel);
+                    events.add(event);
+                    
+                    calendarTable.editCellAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    modelCalendarTable.setValueAt((Object) event.getEvent(), calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    modelCalendarTable.fireTableDataChanged();
+                    //calendarTable.setValueAt((Object) event.getEvent(), calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    modelCalendarTable.fireTableCellUpdated(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
                 } else if(eventLevel.equals("High")) {
-                    AddEvent addEvent = (AddEvent) new HighEvent();
+                    //AddEvent addEvent = (AddEvent) new HighEvent();
                 } else if(eventLevel.equals("Medium")) {
-                    AddEvent addEvent = (AddEvent) new MediumEvent();
+                    //AddEvent addEvent = (AddEvent) new MediumEvent();
                 } else if(eventLevel.equals("Low")) {
-                    AddEvent addEvent = (AddEvent) new LowEvent();
+                    //AddEvent addEvent = (AddEvent) new LowEvent();
                 }
             }
         });
@@ -225,25 +245,5 @@ public class CalendarProgram {
                 refreshCalendar(monthToday, yearToday);
             }
         }
-    }
-
-    public String getEventName() {
-        return this.event;
-    }
-    
-    public String getEventLevel() {
-        return this.eventLevel;
-    }
-    
-    public int getSelectedRow() {
-        return calendarTable.getSelectedRow();
-    }
-    
-    public int getSelectedColumn() {
-        return calendarTable.getSelectedColumn();
-    }
-    
-    public JTable getCalendarTable() {
-        return this.calendarTable;
     }
 }
