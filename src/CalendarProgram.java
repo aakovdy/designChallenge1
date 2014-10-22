@@ -59,7 +59,7 @@ public class CalendarProgram {
             
             int eventDetect = 0;
             for (j = 0; j < events.size(); j++)
-                if (events.get(j).getYear() == year && events.get(j).getMonth() - 1 == month && events.get(j).getDay() == i ){
+                if (events.get(j).getYear() == year && events.get(j).getMonth() - 1 == month && events.get(j).getDay() == i){
                     eventDetect = 1;
                     break;
                 }
