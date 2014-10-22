@@ -10,10 +10,12 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
     public int monthToday, yearToday;
     public CalendarViewer cp;
     public RefreshCalendar refreshCalendar;
+    public AddEventGui addEvent;
 
-    public CalendarViewerListeners(CalendarViewer cp, RefreshCalendar refreshCalendar) {
+    public CalendarViewerListeners(CalendarViewer cp, RefreshCalendar refreshCalendar, AddEventGui addEvent) {
         this.cp = cp;
         this.refreshCalendar = refreshCalendar;
+        this.addEvent = addEvent;
     }
 
     @Override
@@ -28,7 +30,8 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday -= 1;
             }
-            //cp.refreshCalendar(monthToday, yearToday);
+            refreshCalendar.setMonth(monthToday);
+            refreshCalendar.setYear(yearToday);
         } else if ("btnNext".equals(btnName)) {
             if (monthToday == 11) {
                 monthToday = 0;
@@ -36,7 +39,8 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
             } else {
                 monthToday += 1;
             }
-            //cp.refreshCalendar(monthToday, yearToday);
+            refreshCalendar.setMonth(monthToday);
+            refreshCalendar.setYear(yearToday);
         }
     }
 
@@ -45,7 +49,7 @@ public class CalendarViewerListeners implements ActionListener, MouseListener {
         int col = cp.getCalendarTable().getSelectedColumn();
         int row = cp.getCalendarTable().getSelectedRow();
         
-        AddEventGui gui = new AddEventGui();
+        addEvent = new AddEventGui();
     }
 
     @Override

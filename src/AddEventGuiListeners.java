@@ -4,14 +4,17 @@ import javax.swing.JFrame;
 
 public class AddEventGuiListeners implements ActionListener {
 
-    private JFrame eventWindow;
+    private AddEventGui addEvent;
     
-    public AddEventGuiListeners(JFrame window) {
-        this.eventWindow = window;
+    public AddEventGuiListeners(AddEventGui addEvent) {
+        this.addEvent = addEvent;
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        String eventName = addEvent.getNameField().getText();
+        String location = addEvent.getLocationField().getText();
+        String description = addEvent.getDescriptionField().getText();
     }
     
     

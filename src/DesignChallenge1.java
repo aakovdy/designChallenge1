@@ -6,9 +6,10 @@ public class DesignChallenge1 {
         TableRenderer tableRenderer = new TableRenderer();
         RefreshCalendar refreshCalendar = new RefreshCalendar(cp, cp.getMonthBound(), cp.getYearBound(), calendarModel, tableRenderer);
         
-        //AddEventGui addEvent = null;
-        //AddEventGuiListeners addEventListeners = new AddEventGuiListeners(addEvent);
-        CalendarViewerListeners calendarListeners = new CalendarViewerListeners(cp, refreshCalendar);
+        AddEventGui addEvent = new AddEventGui();
+        CalendarViewerListeners calendarListeners = new CalendarViewerListeners(cp, refreshCalendar, addEvent);
+        AddEventGuiListeners addEventListeners = new AddEventGuiListeners(addEvent);
+        addEvent.addListener(addEventListeners);
         cp.addListeners(calendarListeners, calendarListeners);
     }
 }

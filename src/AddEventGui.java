@@ -1,13 +1,14 @@
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class AddEventGui {
 
@@ -75,6 +76,26 @@ public class AddEventGui {
         event.setResizable(true);
         event.setVisible(true);
     
+    }
+    
+    public void addListener(ActionListener l) {
+        submitBtn.addActionListener(l);
+    }
+    
+    public JTextField getNameField() {
+        return this.nameField;
+    }
+    
+    public JTextField getLocationField() {
+        return this.locationField;
+    }
+    
+    public JTextArea getDescriptionField() {
+        return this.descriptionArea;
+    }
+    
+    public JComboBox getComboBox() {
+        return this.priorityBox;
     }
     
 }
