@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -8,6 +7,7 @@ import java.util.*;
 public class CalendarProgram {
 
     private int yearBound, monthBound, dayBound, yearToday, monthToday;
+    private int month, day, year;
 
     private JLabel monthLabel, yearLabel;
     private JButton btnPrev, btnNext, btnImport, btnFbView, btnSmsView;
@@ -16,14 +16,16 @@ public class CalendarProgram {
     private Container pane;
     private JScrollPane scrollCalendarTable;
     private JPanel calendarPanel;
+    private Color color;
 
     private JTable calendarTable;
     private DefaultTableModel modelCalendarTable;
 
     private String[] priorities;
     private String eventName, eventLevel;
-    
+
     private ArrayList<Event> events;
+    private Event event;
 
     public void refreshCalendar(int month, int year) {
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -56,20 +58,21 @@ public class CalendarProgram {
         for (i = 1; i <= nod; i++) {
             int row = new Integer((i + som - 2) / 7);
             int column = (i + som - 2) % 7;
-            
+
             int eventDetect = 0;
-            for (j = 0; j < events.size(); j++)
-                if (events.get(j).getYear() == year && events.get(j).getMonth() - 1 == month && events.get(j).getDay() == i){
+            for (j = 0; j < events.size(); j++) {
+                if (events.get(j).getYear() == year && events.get(j).getMonth() - 1 == month && events.get(j).getDay() == i) {
                     eventDetect = 1;
                     break;
                 }
-            
-            if (eventDetect == 0)
-                modelCalendarTable.setValueAt(i, row, column);
-            else
-                modelCalendarTable.setValueAt(events.get(j).getEvent(), row, column);
-        }
+            }
 
+            if (eventDetect == 0) {
+                modelCalendarTable.setValueAt(i, row, column);
+            } else {
+                modelCalendarTable.setValueAt(events.get(j).getEvent(), row, column);
+            }
+        }
         calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
     }
 
@@ -78,7 +81,7 @@ public class CalendarProgram {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
         }
-        
+
         this.events = events;
 
         frmMain = new JFrame("Calendar Application");
@@ -117,29 +120,58 @@ public class CalendarProgram {
                 int row = calendarTable.getSelectedRow();
 
                 String[] priorities = {"Urgent", "High", "Medium", "Low"};
-                JComboBox priorityBox = new JComboBox(priorities);
+                JComboBox priorityBox = new JComboBox();
+                
+                priorityBox.addItem("Urgent");
+                priorityBox.addItem("High");
+                priorityBox.addItem("Medium");
+                priorityBox.addItem("Low");
+                
+                
                 eventName = JOptionPane.showInputDialog("Event Name:");
                 JOptionPane.showMessageDialog(null, priorityBox, "Priority Level", JOptionPane.QUESTION_MESSAGE);
                 eventLevel = (String) priorityBox.getSelectedItem();
-               
-                if(eventLevel.equals("Urgent")) {
-                    int day = (int) calendarTable.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
-                    int month = monthToday + 1;
-                    int year = yearToday;
-                    Event event = new Event(month, day, year, eventName, eventLevel);
+
+                if (eventLevel.equals("Urgent")) {
+                    day = (int) calendarTable.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    month = monthToday + 1;
+                    year = yearToday;
+                    color = color.RED;
+                    event = new Event(month, day, year, eventName, eventLevel, color);
                     events.add(event);
-                    
-                    calendarTable.editCellAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                   
                     modelCalendarTable.setValueAt((Object) event.getEvent(), calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
-                    modelCalendarTable.fireTableDataChanged();
-                    //calendarTable.setValueAt((Object) event.getEvent(), calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
                     modelCalendarTable.fireTableCellUpdated(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
-                } else if(eventLevel.equals("High")) {
-                    //AddEvent addEvent = (AddEvent) new HighEvent();
-                } else if(eventLevel.equals("Medium")) {
-                    //AddEvent addEvent = (AddEvent) new MediumEvent();
-                } else if(eventLevel.equals("Low")) {
-                    //AddEvent addEvent = (AddEvent) new LowEvent();
+                } else if (eventLevel.equals("High")) {
+                    day = (int) calendarTable.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    month = monthToday + 1;
+                    year = yearToday;
+                    color = color.ORANGE;
+                    event = new Event(month, day, year, eventName, eventLevel, color);
+                    events.add(event);
+                   
+                    modelCalendarTable.setValueAt((Object) event.getEvent(), calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    modelCalendarTable.fireTableCellUpdated(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                } else if (eventLevel.equals("Medium")) {
+                    day = (int) calendarTable.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    month = monthToday + 1;
+                    year = yearToday;
+                    color = color.YELLOW;
+                    event = new Event(month, day, year, eventName, eventLevel, color);
+                    events.add(event);
+                   
+                    modelCalendarTable.setValueAt((Object) event.getEvent(), calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    modelCalendarTable.fireTableCellUpdated(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                } else if (eventLevel.equals("Low")) {
+                    day = (int) calendarTable.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    month = monthToday + 1;
+                    year = yearToday;
+                    color = color.GREEN;
+                    event = new Event(month, day, year, eventName, eventLevel, color);
+                    events.add(event);
+                   
+                    modelCalendarTable.setValueAt((Object) event.getEvent(), calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
+                    modelCalendarTable.fireTableCellUpdated(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
                 }
             }
         });
@@ -152,6 +184,9 @@ public class CalendarProgram {
         btnPrev.addActionListener(new btnPrev_Action());
         btnNext.addActionListener(new btnNext_Action());
         cmbYear.addActionListener(new cmbYear_Action());
+        //btnImport.addActionListener();
+        btnFbView.addActionListener(new btnFbView_Action());
+        btnSmsView.addActionListener(new btnSmsView_Action());
 
         pane.add(calendarPanel);
         calendarPanel.add(monthLabel);
@@ -211,6 +246,7 @@ public class CalendarProgram {
     }
 
     class btnPrev_Action implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             if (monthToday == 0) {
@@ -224,6 +260,7 @@ public class CalendarProgram {
     }
 
     class btnNext_Action implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             if (monthToday == 11) {
@@ -237,6 +274,7 @@ public class CalendarProgram {
     }
 
     class cmbYear_Action implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             if (cmbYear.getSelectedItem() != null) {
@@ -244,6 +282,68 @@ public class CalendarProgram {
                 yearToday = Integer.parseInt(b);
                 refreshCalendar(monthToday, yearToday);
             }
+        }
+    }
+    
+    class btnFbView_Action implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FBView fb = new FBView();
+            fb.showNewEvent(eventName, month, day, year, color);
+        }
+    }
+    
+    class btnSmsView_Action implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Calendar calendar = new Calendar() {
+
+                @Override
+                protected void computeTime() {
+                    
+                }
+
+                @Override
+                protected void computeFields() {
+                    
+                }
+
+                @Override
+                public void add(int field, int amount) {
+                    
+                }
+
+                @Override
+                public void roll(int field, boolean up) {
+                    
+                }
+
+                @Override
+                public int getMinimum(int field) {
+                    return 0;
+                }
+
+                @Override
+                public int getMaximum(int field) {
+                    return 0;
+                }
+
+                @Override
+                public int getGreatestMinimum(int field) {
+                    return 0;
+                }
+
+                @Override
+                public int getLeastMaximum(int field) {
+                    return 0;
+                }
+            };
+            SMS sms = new SMS(eventName, calendar, color);
+            SMSView smsView = new SMSView();
+            
+            smsView.sendSMS(sms);
         }
     }
 }
