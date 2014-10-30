@@ -73,4 +73,9 @@ public class CalendarGUI {
         mainWindow.setLocationRelativeTo(null);
         mainWindow.setVisible(true);
     }
+    
+    public void AddListener(ActionListener listener, MouseListener mListener){
+        btnPrev.addActionListener(listener);
+    }
+    
 }
