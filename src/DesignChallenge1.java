@@ -12,9 +12,11 @@ import java.util.ArrayList;
 
 public class DesignChallenge1 {
     public static void main (String[] args){
-        ArrayList<Event> events = new ArrayList<Event>();
+        ArrayList<Event> events = new ArrayList<>();
         CalendarGUI calGUI = new CalendarGUI();
-        CalendarControl calControl = new CalendarControl();
-        calGUI.AddListener(calControl, calControl);
+        CalendarButtonsControl btnControl = new CalendarButtonsControl(calGUI);
+        CalendarCmbBoxControl cmbYearControl = new CalendarCmbBoxControl(calGUI);
+        CalendarCellControl cellControl = new CalendarCellControl(calGUI.getCalendarTable());
+        calGUI.AddListener(btnControl, cmbYearControl, cellControl);
     }
 }
